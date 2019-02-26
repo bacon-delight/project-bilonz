@@ -504,7 +504,7 @@ $(document).ready(function() {
 	{ 
 		$.ajax({
 			type: 'GET',
-			url: apiUrl + '/gateway/last/' + sensor_id,
+			url: apiUrl + '/gateway/last/sensor/' + sensor_id,
 			dataType: 'json',
 			data: '{}',
 			success: function (response)

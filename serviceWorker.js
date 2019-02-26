@@ -2,8 +2,14 @@ const version = "0.1";
 const cacheName = `Document Creator-${version}`;
 const cacheFiles = [
     `/`,
-    `index.html`,
-    `login.html`
+    `https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js`,
+    `https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css`,
+    `https://fonts.googleapis.com/css?family=Exo`,
+    `https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js`,
+    `https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js`,
+    `assets/snackbar/dist/snackbar.min.css`,
+    `assets/snackbar/dist/snackbar.min.js`,
+    `assets/images/bg2.jpg`
 ];
 
 

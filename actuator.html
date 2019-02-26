@@ -21,6 +21,10 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/actuator.css">
 
+		<!-- Snackbar Local -->
+		<link rel="stylesheet" type="text/css" href="assets/snackbar/dist/snackbar.min.css" />
+		<script src="assets/snackbar/dist/snackbar.min.js"></script>
+
 	</head>
 	
 
@@ -55,44 +59,67 @@
 			<!-- Main Content -->
 			<div class="contentContainer">
 				
-				<!-- Top Cards -->
-				<div class="ui four column centered grid stackable" id="topCards">
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="nodeCard">
-							<div class="content">
-								<div class="header">Nodes</div>
-								<div class="description">Some desc</div>
+				<div class="ui centered grid stackable">
+					
+
+					<!-- Top Info Card -->
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<div class="header">Actuator</div>
+									<div class="description">Actuators controls devices</div>
+									<div class="alchemy" id="alchemy"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<form class="content ui form createForm" id="createForm" name="createForm">
+									<div class="header" id="centerAligned">Add an Actuator</div>
+									<div class="description" id="centerAligned">Get started with device control our server by adding an actuator</div>
+									<div class="ui divider"></div>
+									<div class="ui field">
+										<label>Actuator Name</label>
+										<input type="text" name="name" id="name" placeholder="Name your actuator">
+									</div>
+									<div class="ui field">
+										<label>Actuator Description</label>
+										<textarea name="description" id="description" placeholder="Optional"></textarea>
+									</div>
+									<div class="ui error message"></div>
+									<div class="ui divider"></div>
+									<button class="ui green basic button" type="submit" id="submit" name="submit"><i class="add icon"></i>Add Actuator</button>
+								</form>
 							</div>
 						</div>
 					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="sensorCard">
-							<div class="content">
-								<div class="header">Sensors</div>
-								<div class="description">Some desc</div>
+
+
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content" id="centerAligned">
+									<h3 class="header">Your Actuators</h3>
+									<div class="description">Click on an actuator to track live data and view analytics based on your activity log</div>
+									<div class="ui divider"></div>
+									<table class="ui table structured celled unstackable">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Description</th>
+												<th class="hideOnMobile">Actuator ID</th>
+												<th class="hideOnMobile">Node ID</th>
+											</tr>
+										</thead>
+										<tbody class="actuatorList"></tbody>
+									</table>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="actuatorCard">
-							<div class="content">
-								<div class="header">Actuators</div>
-								<div class="description">Some desc</div>
-							</div>
-						</div>
-					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="actuatorCard">
-							<div class="content">
-								<div class="header">Usage</div>
-								<div class="description">Some desc</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="helloMessage">
-					<p>Hi there, what are you waiting for?</p>
+
 				</div>
 
 			</div>

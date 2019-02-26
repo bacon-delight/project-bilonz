@@ -1,0 +1,18 @@
+.actuatorInfo {
+	transition: 1.2s;
+}
+
+.actuatorInfo:hover {
+	background: #d9d9d9;
+	transition: 1.2s;
+}
+
+#centerAligned {
+	text-align: center;
+}
+
+/* Mobile Devices */
+@media only screen 
+and (max-width : 767px) {
+	
+}

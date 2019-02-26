@@ -1,3 +1,6 @@
+//Sensor Count
+var numberOfSensors = 0 ;
+
 //Redirect to Sensor Information
 function exploreSensor(sensor_id)
 {
@@ -76,15 +79,33 @@ $('#createForm').on('submit', function(e)
 				},
 				success: function (response)
 				{
-					//Add Row in Sensor List
-					$('.sensorList').append(`
-						<tr class="sensorInfo" onclick="exploreSensor('`+ response.private_id +`')" style="cursor: pointer;">
-							<td>`+ formDataJSON.name +`</td>
-							<td>`+ formDataJSON.description +`</td>
-							<td class="hideOnMobile">`+ response.private_id +`</td>
-							<td class="hideOnMobile"></td>
-						</tr>
-					`);
+					if (numberOfSensors > 0)
+					{
+						//Add Row in Sensor List
+						$('.sensorList').append(`
+							<tr class="sensorInfo" onclick="exploreSensor('`+ response.private_id +`')" style="cursor: pointer;">
+								<td>`+ formDataJSON.name +`</td>
+								<td>`+ formDataJSON.description +`</td>
+								<td class="hideOnMobile">`+ response.private_id +`</td>
+								<td class="hideOnMobile"></td>
+							</tr>
+						`);
+					}
+					else
+					{
+						//Add Row in Sensor List
+						$('.sensorList').html(`
+							<tr class="sensorInfo" onclick="exploreSensor('`+ response.private_id +`')" style="cursor: pointer;">
+								<td>`+ formDataJSON.name +`</td>
+								<td>`+ formDataJSON.description +`</td>
+								<td class="hideOnMobile">`+ response.private_id +`</td>
+								<td class="hideOnMobile"></td>
+							</tr>
+						`);
+					}
+
+					//Increase Sensor Count
+					numberOfSensors++ ;
 
 					//Reset Form
 					$('.content.ui.form.createForm').form('reset');
@@ -137,6 +158,9 @@ $.ajax({
 							<td class="hideOnMobile">`+ sensor.node_id +`</td>
 						</tr>
 					`);
+					
+					//Increase Sensor Count
+					numberOfSensors++ ;
 				});
 			}
 			else
