@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- Headers -->
+	<head>
+		<title>Bilonz - Welcome</title>
+
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+	    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" name="viewport">
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+	    <meta name="theme-color" content="#000000" />
+	    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+	    <meta http-equiv="Pragma" content="no-cache" />
+	    <meta http-equiv="Expires" content="0" />
+
+	    <!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+		<!-- Local Imports -->
+		<link rel="stylesheet" type="text/css" href="assets/css/index.css">
+
+	</head>
+	
+
+	<!-- Body -->
+	<body>
+
+		<div class="ui segment firstContainer">
+			<nav class="navContainer">
+				<div class="logo">
+				    <a href="index.html">
+				        <div class="random">
+				            <span class="nbr ltr">0</span>
+				            <span class="nbr ltr">0</span>
+				            <span class="nbr ltr">0</span>
+				            <span class="nbr ltr">0</span>
+				            <span class="nbr ltr">0</span>
+				            <span class="nbr ltr">0</span>
+				        </div>
+				    </a>
+				</div>
+				<div class="navOptions">
+					<a href="" class="navLink" id="computerOnly">Services</a>
+					<a href="" class="navLink" id="computerOnly">Support</a>
+					<a href="" class="navLink" id="computerOnly">Community</a>
+					<a class="ui basic inverted button" id="loginButton">Login</a>
+					<a class="navLink" id="mobileOnly"><i class="bars icon"></i></a>
+				</div>
+			</nav>
+
+			<div class="centeredContainer">
+				<div class="ui grid centered stackable">
+
+					<div class="nine wide column" id="leftContainer">
+						<h1 class="adHeader">Simplest IoT Platform for Home and Industry</h1>
+						<h3 class="adDescription">Deploy, manage and scale IoT devices faster and more efficiently on Bilonz. We make managing infrastructure easy for home and businesses. Incorporate AI in your IoT through our one-click tags.</h3>
+					</div>
+
+					<div class="four wide column" id="rightContainer">
+						<form class="ui form" name="signupForm" id="signupForm">
+							<h3 class="ui header centered" id="signupFormH1">Deploy IoT in Seconds</h3>
+							<h1 class="ui header centered" id="signupFormH2">Get Started Today</h1>
+							<div class="field">
+								<input type="text" name="name" id="name" placeholder="Name">
+							</div>
+							<div class="field">
+								<input type="email" name="email" id="email" placeholder="Email">
+							</div>
+							<div class="field">
+								<input type="text" name="phone" id="phone" placeholder="Phone Number">
+							</div>
+							<div class="field">
+								<input type="password" name="password" id="password" placeholder="Password">
+							</div>
+							<div class="field">
+								<input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirm Password">
+							</div>
+							<button class="ui teal button" type="submit" id="submit" name="submit">Create Your Account</button>
+							<p>By signing up you agree to our <a href="">Terms of Service</a></p>
+							<div class="ui error message"></div>
+							<div class="ui negative message errorMessage" id="errorMessage">
+								<div class="header">Signup Error</div>
+								<p id="errorDescription">Something went wrong</p>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+		<div class="ui basic modal" id="mobileMenu">
+			<div class="modalLinkContainer">
+				<a href="" class="modalLink">Services</a>
+			</div>
+			<div class="modalLinkContainer">
+				<a href="" class="modalLink">Support</a>
+			</div>
+			<div class="modalLinkContainer">
+				<a href="" class="modalLink">Community</a>
+			</div>
+			<div class="actions">
+				<button class="ui inverted basic cancel button">
+					<i class="remove icon"></i>
+					Close
+				</button>
+			</div>
+		</div>
+
+		
+		
+
+		<!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+		<!-- Local Imports -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/index.js"></script>
+		<!-- https://redstapler.co/10-stunning-css-3d-effect-must-see/ -->
+	</body>
+</html>

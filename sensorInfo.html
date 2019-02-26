@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- Headers -->
+	<head>
+		<title>Bilonz - Sensor Information</title>
+
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+	    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" name="viewport">
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	    <!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+		
+		<!-- Data Table -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css">
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
+
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+		<!-- Local Imports -->
+		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/sensorInfo.css">
+
+		<!-- Snackbar Local -->
+		<link rel="stylesheet" type="text/css" href="assets/snackbar/dist/snackbar.min.css" />
+		<script src="assets/snackbar/dist/snackbar.min.js"></script>
+
+	</head>
+	
+
+	<!-- Body -->
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navContainer">
+			<div class="sidebarTrigger" onclick="toggleSidebar()">
+				<i class="bars icon" id="sidebarIcon"></i>
+			</div>
+			<div class="logo">
+			    <a href="index.html">
+			        <div class="random">
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			        </div>
+			    </a>
+			</div>
+		</nav>
+
+		<div class="mainContainer">
+			<!-- Sidebar -->
+			<div class="sidebarContainer">
+				<div class="ui vertical menu inverted" id="sidebarMenu"></div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="contentContainer">
+				
+				<div class="ui centered grid stackable">
+
+					<!-- Top Row -->
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header" id="sensorName">Sensor Name</h3>
+									<div class="ui divider"></div>
+									<div class="description sensorDetails">
+										<div class="ui list">
+											<div class="item" id="sensorDescription">
+												<strong>Description: </strong>
+											</div>
+											<!-- <div class="item" id="lowestLim">
+												<strong>Lowest Limit: </strong>
+											</div>
+											<div class="item" id="highestLim">
+												<strong>Highest Limit: </strong>
+											</div> -->
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<div class="description sensorDetails">
+										<h4>Additional Information</h4>
+										<div class="ui list">
+											<div class="item">
+												<div class="ui segment" id="codeSegment">
+													<strong>Sensor ID: </strong>
+													<code id="sensorID"></code>
+												</div>
+											</div>
+											<div class="item">
+												<div class="ui segment" id="codeSegment">
+													<strong>Root Node: </strong>
+													<code id="nodeID"></code>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<div class="actionContainer">
+										<div class="ui basic blue button" id="actionButtons" onclick="manageSensor()">
+											Manage Sensor
+										</div>
+										<div class="ui basic red button"  id="actionButtons" onclick="deleteSensor()">
+											Delete Sensor
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="eight wide column">
+							<div class="row">
+								<div class="ui grid stackable centered">
+									<div class="eight wide column" id="lowLimitCardColumn">
+										<div class="ui fluid card" id="lowLimitCard">
+											<div class="content">
+												<h3>Record Low</h3>
+												<h1 class="recordLowValue">
+													<i class="snowflake outline icon"></i>
+												</h1>
+												<h4 id="lowestLim"><strong>Lowest Set:</strong> </h4>
+											</div>
+										</div>
+									</div>
+									<div class="eight wide column" id="highLimitCardColumn">
+										<div class="ui fluid card" id="highLimitCard">
+											<div class="content">
+												<h3>Record High</h3>
+												<h1 class="recordHighValue">
+													<i class="fire icon"></i>
+												</h1>
+												<h4 id="highestLim"><strong>Highest Set:</strong> </h4>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row" style="margin-top: 20px;">
+								<div class="sixteen wide column">
+									<div class="ui fluid card">
+										<div class="content">
+											<h3 class="header">Set Alerts</h3>
+											<div class="ui divider"></div>
+											<div class="ui slider checkbox alertCheckbox">
+												<input type="checkbox" disabled="disabled" name="lowAlert">
+												<label>Alert when readings drop below Low Limit</label>
+											</div>
+											<div class="ui slider checkbox alertCheckbox">
+												<input type="checkbox" disabled="disabled" name="highAlert">
+												<label>Alert when readings rise above High Limit</label>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>	
+						</div>
+						
+					</div>
+
+					<!-- Live Graph -->
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">Live Graph</h3>
+									<div class="ui divider"></div>
+									<canvas id="liveChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Insights -->
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">Daily Average</h3>
+									<div class="ui divider"></div>
+									<canvas id="weekChart"></canvas>
+								</div>
+							</div>
+						</div>
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">Data Optimality Insight</h3>
+									<div class="ui divider"></div>
+									<div class="optimalityCard"></div>
+									<canvas id="optimalChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<div class="ui text menu">
+										<div class="item">
+											<h3 class="header">
+												Reading Table
+											</h3>
+										</div>
+										<div class="right item">
+											<div class="ui button basic primary" onclick="exportCSV()">
+												Export CSV
+											</div>
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<table class="ui celled table unstackable" id="readingTable">
+										<thead>
+											<tr>
+												<th>Timestamp</th>
+												<th>Reading</th>
+											</tr>
+										</thead>
+										<tbody id="readingTableBody">
+											<!-- Rows Inserted from JS -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">API Transmission Gateway (GET)</h3>
+									<div class="ui divider"></div>
+									<h4>Please Note:</h4>
+									<li>HTTP and HTTPS are both accepted</li>
+									<li>Data is sent as params when this gateway is used</li>
+									<li>Only one sensor reading can be sent through this method</li>
+									<li>Replace the variables represented in red with appropriate values</li>
+									<div class="ui divider"></div>
+									<h4>Request URL</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code id="getURL"></code>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">API Payload Gateway (POST)</h3>
+									<div class="ui divider"></div>
+									<h4>Please Note:</h4>
+									<li>HTTP and HTTPS are both accepted</li>
+									<li>Multiple sensor readings can be sent through this method</li>
+									<li>Actuator states can also be sent in the payload</li>
+									<li>Replace the variables represented in red with appropriate values</li>
+									<div class="ui divider"></div>
+									<h4>Payload Gateway</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code id="payloadURL"></code>
+									</div>
+									<h4>Headers</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code>
+											<strong>Content-Type:</strong> application/json<br>
+											<strong>x-access-node: <span style="color: red;">NODE-ID</span></strong>
+										</code>
+									</div>
+									<h4>Body</h4>
+									<div class="ui segment" id="codeSegment">
+										<code class="json">
+											{
+												"sensors": [
+													{
+														"id": "<span id="sensorId"></span>",
+														"value": "<strong style="color: red;">VALUE</strong>"
+													}
+												]
+											}
+										</code>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Modal for Managing Sensor -->
+		<form class="ui mini modal modifyForm" id="modifyForm" name="modifyForm">
+			<div class="header">Manage Sensor</div>
+			<div class="content ui form">
+				<div class="ui field">
+					<label>Sensor Name</label>
+					<input type="text" name="name" id="modifyName">
+				</div>
+				<div class="ui field">
+					<label>Sensor Description</label>
+					<textarea name="description" id="modifyDescription"></textarea>
+				</div>
+				<div class="ui field">
+					<label>Lowest Limit</label>
+					<input type="text" name="lowest" id="modifyLowest">
+				</div>
+				<div class="ui field">
+					<label>Highest Limit</label>
+					<input type="text" name="highest" id="modifyHighest">
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui red basic deny button"><i class="cancel icon"></i>Cancel</div>
+				<button class="ui green basic button" type="submit" id="submit" name="submit"><i class="checkmark icon"></i>Save Changes</button>
+			</div>
+		</form>
+		
+		<form class="ui mini modal deleteForm" name="deleteForm" id="deleteForm">
+			<div class="header">Delete Sensor</div>
+			<div class="content ui form">
+				<h4>Please Note</h4>
+				<p>This action cannot be undone and will permanently delete the sensor and all its data</p>
+				<div class="ui field">
+					<label>Please type the name of the sensor to confirm</label>
+					<input type="text" name="deleteConfirm" id="deleteConfirm">
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui basic blue deny button">Cancel</div>
+				<button class="ui red button" type="submit" id="submitDelete" name="submit"><i class="trash alternate outline icon"></i>Permanently Delete</button>
+			</div>
+		</form>
+
+		<!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+		<!-- Local Imports -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/common.js"></script>
+		<script src="assets/js/sensorInfo.js"></script>
+
+	</body>
+</html>

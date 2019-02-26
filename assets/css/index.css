@@ -1,0 +1,218 @@
+*, *::after, *::before {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+*::after, *::before {
+	content: '';
+}
+
+body {
+}
+
+.ui.segment.firstContainer {
+	width: 100vw;
+	min-height: 105vh;
+	display: block;
+	border: 0px;
+	margin: 0px;
+	border-radius: 0px;
+	background: url('../images/bg2.jpg');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	padding-top: 50px;
+	padding-bottom: 80px;
+}
+
+.centeredContainer {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 95%;
+}
+
+#leftContainer {
+	color: #fff;
+	text-align: left;
+	min-width: 700px;
+	padding-right: 50px;
+	padding-left: 50px;
+}
+
+#rightContainer {
+	min-width: 400px;
+	background: #fff;
+	border-radius: 7px;
+	padding-top: 30px;
+	opacity: 0.6;
+	transition: 0.9s all;
+}
+
+#rightContainer:hover {
+	opacity: 0.9;
+}
+
+#signupForm {
+	text-align: center;
+}
+
+.adHeader {
+	letter-spacing: 2px;
+	font-family: 'Exo', sans-serif;
+	font-size: 45px;
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+
+.adDescription {
+	letter-spacing: 1.5px;
+	font-family: 'Exo', sans-serif;
+	font-size: 25px;
+	font-weight: lighter;
+	text-align: justify;
+	line-height: 45px;
+}
+
+#signupFormH1 {
+	margom: 0px;
+	font-family: 'Exo', sans-serif;
+	letter-spacing: 2.4px;
+}
+
+#signupFormH2 {
+	margin-top: 0px;
+	margin-bottom: 20px;
+	font-family: 'Exo', sans-serif;
+	letter-spacing: 1.5px;
+	font-size: 30px;
+}
+
+.logo {
+	float: left;
+	padding: 8px;
+	margin-left: 16px;
+	margin-top: 17px;
+}
+
+.logo a {
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 18px;
+	letter-spacing: 2px;
+	text-decoration: none;
+}
+
+.navContainer {
+	width: 100%;
+	background: transparent;
+	text-align: center;
+	position: fixed;
+	z-index: 1;
+	top: 0%;
+	left: 0%;
+	padding-top: 0px;
+	padding-bottom: 15px;
+	transition: 1.2s all;
+}
+
+.navContainer.scrolled {
+	background: #000 ;
+}
+
+.navOptions {
+	padding-top: 18px;
+	padding-right: 15px;
+	float: right;
+}
+
+.navLink {
+	font-size: 18px;
+	font-family: 'Exo', sans-serif;
+	color: #fff;
+	letter-spacing: 1.5px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+#errorMessage {
+	text-align: center;
+	display: none;
+}
+
+#loginButton {
+	margin-left: 20px;
+	font-family: 'Exo', sans-serif;
+	letter-spacing: 1.5px;
+}
+
+#computerOnly {
+	display: inline-block;
+}
+
+#mobileOnly {
+	display: none;
+	margin-right: 0px;
+	margin-left: 15px;
+}
+
+#mobileMenu {
+	text-align: right;
+}
+
+.modalLinkContainer {
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-right: 20px;
+}
+
+.modalLink {
+	text-decoration: none;
+	font-family: 'Exo', sans-serif;
+	color: #fff;
+	letter-spacing: 1.5px;
+	font-size: 25px;
+}
+
+
+/* Mobile Devices */
+@media only screen 
+and (max-width : 767px) {
+	#computerOnly {
+		display: none;
+	}
+	#mobileOnly {
+		display: inline-block;
+	}
+	.centeredContainer {
+		position: relative;
+		top: 0%;
+		transform: translateX(-50%);
+		margin-top: 50px;
+	}
+	#leftContainer {
+		min-width: 300px;
+		padding-top: 50px;
+	}
+	#rightContainer {
+		min-width: 300px;
+	}
+	.adHeader {
+		font-size: 40px;
+	}
+	.adDescription {
+		font-size: 20px;
+	}
+	.logo a {
+		font-size: 14px;
+		letter-spacing: 1.2px;
+	}
+}
+
+/* Hide Scroll */
+::-webkit-scrollbar {
+	width: 0px;
+}

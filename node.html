@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- Headers -->
+	<head>
+		<title>Bilonz - Nodes</title>
+
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+	    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" name="viewport">
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	    <!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+		<!-- Local Imports -->
+		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/node.css">
+
+	</head>
+	
+
+	<!-- Body -->
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navContainer">
+			<div class="sidebarTrigger" onclick="toggleSidebar()">
+				<i class="bars icon" id="sidebarIcon"></i>
+			</div>
+			<div class="logo">
+			    <a href="index.html">
+			        <div class="random">
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			        </div>
+			    </a>
+			</div>
+		</nav>
+
+		<div class="mainContainer">
+			<!-- Sidebar -->
+			<div class="sidebarContainer">
+				<div class="ui vertical menu inverted" id="sidebarMenu"></div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="contentContainer">
+				
+				<!-- Top Cards -->
+				<div class="ui four column centered grid stackable" id="topCards">
+					<div class="column" id="topCardsColumn">
+						<div class="ui fluid card" id="nodeCard">
+							<div class="content">
+								<div class="header">Nodes</div>
+								<div class="description">Some desc</div>
+							</div>
+						</div>
+					</div>
+					<div class="column" id="topCardsColumn">
+						<div class="ui fluid card" id="sensorCard">
+							<div class="content">
+								<div class="header">Sensors</div>
+								<div class="description">Some desc</div>
+							</div>
+						</div>
+					</div>
+					<div class="column" id="topCardsColumn">
+						<div class="ui fluid card" id="actuatorCard">
+							<div class="content">
+								<div class="header">Actuators</div>
+								<div class="description">Some desc</div>
+							</div>
+						</div>
+					</div>
+					<div class="column" id="topCardsColumn">
+						<div class="ui fluid card" id="actuatorCard">
+							<div class="content">
+								<div class="header">Usage</div>
+								<div class="description">Some desc</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="helloMessage">
+					<p>Hi there, what are you waiting for?</p>
+				</div>
+
+			</div>
+		</div>
+		
+		
+
+		<!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+		<!-- Local Imports -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/common.js"></script>
+		<script src="assets/js/node.js"></script>
+
+	</body>
+</html>

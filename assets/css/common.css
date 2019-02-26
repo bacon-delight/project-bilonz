@@ -1,0 +1,96 @@
+.logo {
+	float: left;
+	margin-left: 25px;
+	padding: 8px;
+	margin-top: 12.5px;
+}
+
+.logo a {
+	color: #fff;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 18px;
+	letter-spacing: 2px;
+	text-decoration: none;
+}
+
+.navContainer {
+	width: 100%;
+	background: #000;
+	color: #fff;
+	text-align: center;
+	position: fixed;
+	z-index: 2;
+	top: 0%;
+	left: 0%;
+	padding-top: 0px;
+	padding-bottom: 15px;
+	transition: 1.2s all;
+}
+
+.sidebarTrigger {
+	float: left;
+	margin-left: 18px;
+	margin-top: 20px;
+	cursor: pointer;
+}
+
+#sidebarIcon {
+	font-size: 20px;
+}
+
+.mainContainer
+{
+	width: 100vw;
+}
+
+.sidebarContainer {
+	height: 100vh;
+	max-height: 100vh;
+	background: #000;
+	width: 250px;
+	float: left;
+	overflow-y: scroll;
+	z-index: 1;
+	padding-top: 60px;
+	color: #fff;
+}
+
+.contentContainer {
+	background: #ebebe0; 
+	/* background: url('../images/bg4.jpg'); */
+	height: 100vh;
+	float: left;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-top: 80px;
+	padding-left: 40px;
+	padding-right: 40px;
+}
+
+#sidebarMenu {
+	width: 100%;
+	border: 0px;
+	border-radius: 0px;
+	background: #000;
+}
+
+/* Mobile Devices */
+@media only screen 
+and (max-width : 767px) {
+	.sidebarContainer {
+		position: absolute;
+	}
+	.contentContainer {
+		padding-left: 15px;
+		padding-right: 15px;
+	}
+	.hideOnMobile {
+		display: none;
+	}
+}
+
+/* Hide Scroll */
+::-webkit-scrollbar {
+	width: 0px;
+}

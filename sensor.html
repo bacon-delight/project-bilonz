@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- Headers -->
+	<head>
+		<title>Bilonz - Sensors</title>
+
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+	    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" name="viewport">
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	    <!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+		<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+		<!-- Local Imports -->
+		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/sensor.css">
+
+		<!-- Snackbar Local -->
+		<link rel="stylesheet" type="text/css" href="assets/snackbar/dist/snackbar.min.css" />
+		<script src="assets/snackbar/dist/snackbar.min.js"></script>
+
+	</head>
+	
+
+	<!-- Body -->
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navContainer">
+			<div class="sidebarTrigger" onclick="toggleSidebar()">
+				<i class="bars icon" id="sidebarIcon"></i>
+			</div>
+			<div class="logo">
+			    <a href="index.html">
+			        <div class="random">
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			        </div>
+			    </a>
+			</div>
+		</nav>
+
+		<div class="mainContainer">
+			<!-- Sidebar -->
+			<div class="sidebarContainer">
+				<div class="ui vertical menu inverted" id="sidebarMenu"></div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="contentContainer">
+				
+				<div class="ui centered grid stackable">
+					
+
+					<!-- Top Info Card -->
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<div class="header">Sensor</div>
+									<div class="description">Sensors records data</div>
+									<div class="alchemy" id="alchemy"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<form class="content ui form createForm" id="createForm" name="createForm">
+									<div class="header" id="centerAligned">Add a Sensor</div>
+									<div class="description" id="centerAligned">Get started with data transmission into our server by adding a sensor</div>
+									<div class="ui divider"></div>
+									<div class="ui field">
+										<label>Sensor Name</label>
+										<input type="text" name="name" id="name" placeholder="Name your sensor">
+									</div>
+									<div class="ui field">
+										<label>Sensor Description</label>
+										<textarea name="description" id="description" placeholder="Optional"></textarea>
+									</div>
+									<div class="row ui grid">
+										<div class="eight wide column">
+											<div class="ui field">
+												<label>Lowest Limit</label>
+												<input type="text" name="lowest" id="lowest" placeholder="Optional">
+											</div>
+										</div>
+										<div class="eight wide column">
+											<div class="ui field">
+												<label>Highest Limit</label>
+												<input type="text" name="highest" id="highest" placeholder="Optional">
+											</div>
+										</div>
+									</div>
+									<div class="ui error message"></div>
+									<div class="ui divider"></div>
+									<button class="ui green basic button" type="submit" id="submit" name="submit"><i class="add icon"></i>Add Sensor</button>
+								</form>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content" id="centerAligned">
+									<h3 class="header">Your Sensors</h3>
+									<div class="description">Click on a sensor to go to track live data and view analytics based on your sensor data</div>
+									<div class="ui divider"></div>
+									<table class="ui table structured celled unstackable">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Description</th>
+												<th class="hideOnMobile">Sensor ID</th>
+												<th class="hideOnMobile">Node ID</th>
+											</tr>
+										</thead>
+										<tbody class="sensorList"></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				
+				
+				
+
+				
+
+			</div>
+		</div>
+		
+		
+
+		<!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+		<!-- Local Imports -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/common.js"></script>
+		<script src="assets/js/sensor.js"></script>
+
+	</body>
+</html>
