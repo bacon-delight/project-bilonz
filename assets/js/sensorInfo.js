@@ -92,7 +92,7 @@ $('#modifyForm').on('submit', function(e)
 		else
 		{
 			Snackbar.show({
-				text: 'Lowest Limit must be greater than Highest Limit',
+				text: 'Lowest Limit must be less than Highest Limit',
 				pos: 'bottom-center',
 				actionTextColor: 'rgba(255,90,100,1)'
 			});

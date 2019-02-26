@@ -59,7 +59,7 @@ $('#createForm').on('submit', function(e)
 		if(((formDataJSON.lowest != '') || (formDataJSON.highest != '')) && (parseFloat(formDataJSON.lowest) >= parseFloat(formDataJSON.highest)))
 		{
 			Snackbar.show({
-				text: 'Lowest Limit must be greater than Highest Limit',
+				text: 'Lowest Limit must be less than Highest Limit',
 				pos: 'bottom-center',
 				actionTextColor: 'rgba(255,90,100,1)'
 			});
