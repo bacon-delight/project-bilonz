@@ -232,12 +232,25 @@
 					</div>
 
 					<div class="row">
-						<div class="eight wide column">
+						<div class="sixteen wide column">
 							<div class="ui fluid card">
 								<div class="content">
 									<h3 class="header">Automated Actions</h3>
 									<div class="ui divider"></div>
-									<div class="actionList">No actions set</div>
+									<table class="ui celled table unstackable" id="actionTable">
+										<thead>
+											<tr>
+												<th>Condition</th>
+												<th>Value</th>
+												<th>Action</th>
+												<th>Actuator</th>
+												<th>Revoke Rule</th>
+											</tr>
+										</thead>
+										<tbody id="actionTableList">
+											<!-- Rows Inserted from JS -->
+										</tbody>
+									</table>
 									<div class="ui divider"></div>
 									<div class="ui basic blue button" id="actionButtons" onclick="createAction()">
 										Add Action
@@ -245,6 +258,9 @@
 								</div>
 							</div>
 						</div>
+					</div>
+
+					<div class="row">
 						<div class="eight wide column">
 							<div class="row">
 								<div class="sixteen wide column">
@@ -266,6 +282,8 @@
 									</div>
 								</div>
 							</div>
+						</div>
+						<div class="eight wide column">
 							<div class="row">
 								<div class="sixteen wide column">
 									<div class="ui fluid card">
@@ -355,6 +373,27 @@
 			<div class="actions">
 				<div class="ui basic blue deny button">Cancel</div>
 				<button class="ui red button" type="submit" id="submitDelete" name="submit"><i class="trash alternate outline icon"></i>Permanently Delete</button>
+			</div>
+		</form>
+
+		<form class="ui mini modal revokeRuleModal" name="revokeRuleModal" id="revokeRuleModal">
+			<div class="header">Revoke Rule</div>
+			<div class="content ui form">
+				<input type="hidden" name="rule_id" id="rule_idRevoke">
+				<h4>Please Note</h4>
+				<p>This action cannot be undone and will permanently revoke the rule</p>
+				<h4>Condition</h4>
+				<p id="revokeCondition"></p>
+				<h4>Value</h4>
+				<p id="revokeValue"></p>
+				<h4>Action</h4>
+				<p id="revokeAction"></p>
+				<h4>Target</h4>
+				<p id="revokeTarget"></p>
+			</div>
+			<div class="actions">
+				<div class="ui basic blue deny button">Cancel</div>
+				<button class="ui red button" type="submit" id="revokeRuleButton" name="submit"><i class="trash alternate outline icon"></i>Permanently Revoke</button>
 			</div>
 		</form>
 

@@ -58,6 +58,15 @@ h3.header {
 	overflow-x: overlay;
 }
 
+.revokeRule {
+	text-decoration: none;
+	color: red;
+}
+
+.revokeRule:hover {
+	color: red;
+}
+
 .ui.slider.checkbox.alertCheckbox {
 	margin-top: 15px;
 }

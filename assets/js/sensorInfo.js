@@ -8,7 +8,8 @@ var lastRecord = 0 ;
 var max = null ;
 var min = null ;
 var sensorName ;
-var numberOfPlots=0 ;
+var numberOfPlots = 0 ;
+var numberOfActions = 0 ;
 
 function exportCSV()
 {
@@ -54,7 +55,6 @@ function createAction()
 					$('#actuatorList').html('');
 					$.each(response.actuators,function(key,actuator)
 					{
-						
 						$('#actuatorList').append(`
 							<div class="item" data-value="`+ actuator.private_id +`">`+ actuator.name +`</div>
 						`);
@@ -147,7 +147,50 @@ $('#addAction').on('submit', function(e)
 			{
 				if (response.action == true)
 				{
-					//Update List
+					if(formDataJSON.condition == true)
+					{
+						condition = 'Greater Than' ;
+					}
+					else
+					{
+						condition = 'Less Than' ;
+					}
+					if(formDataJSON.action == true)
+					{
+						rule = 'On' ;
+					}
+					else
+					{
+						rule = 'Off' ;
+					}
+
+					if(numberOfActions < 1)
+					{
+						//Update Action List
+						$('#actionTableList').html(`
+							<tr id="`+ response.rule_id +`">
+								<td>`+ condition +`</td>
+								<td>`+ formDataJSON.value +`</td>
+								<td>`+ rule +`</td>
+								<td>`+ formDataJSON.actuator_id +`</td>
+								<td><a class="revokeRule" onclick="revokeRule('`+ response.rule_id +`','`+ condition +`','`+ formDataJSON.value +`','`+ rule +`','`+ formDataJSON.actuator_id +`')">Revoke</a></td>
+							</tr>
+						`);
+					}
+					else
+					{
+						//Update Action List
+						$('#actionTableList').append(`
+							<tr id="`+ response.rule_id +`">
+								<td>`+ condition +`</td>
+								<td>`+ formDataJSON.value +`</td>
+								<td>`+ rule +`</td>
+								<td>`+ formDataJSON.actuator_id +`</td>
+								<td><a class="revokeRule" onclick="revokeRule('`+ response.rule_id +`','`+ condition +`','`+ formDataJSON.value +`','`+ rule +`','`+ formDataJSON.actuator_id +`')">Revoke</a></td>
+							</tr>
+						`);
+					}
+					
 
 					//Hide Modal
 					$('.mini.modal.addAction').modal('hide') ;
@@ -157,6 +200,8 @@ $('#addAction').on('submit', function(e)
 						text: 'Action Added Successfully',
 						pos: 'bottom-center'
 					}); 
+
+					numberOfActions++ ;
 				}
 			},
 			error: function (response)
@@ -175,6 +220,76 @@ $('#addAction').on('submit', function(e)
 		$('#addActionError').css('display', 'block');
 	}
 
+});
+
+function revokeRule(rule_id, revokeCondition, revokeValue, revokeAction, revokeTarget)
+{
+	//Show Modal
+	$('.mini.modal.revokeRuleModal').modal('show').modal('setting', 'closable', false) ;
+
+	//Fill Rule Details
+	$('#revokeCondition').html(revokeCondition);
+	$('#revokeValue').html(revokeValue);
+	$('#revokeAction').html(revokeAction);
+	$('#revokeTarget').html(revokeTarget);
+
+	$('#rule_idRevoke').val(rule_id);
+}
+
+$('#revokeRuleModal').on('submit', function(e)
+{
+	//Prevent Default Action 
+	e.preventDefault();
+
+	//Serialize Form Data
+	var form = $(this);
+	var formData = form.serializeArray() ;
+	formData = _.object(_.pluck(formData, 'name'), _.pluck(formData, 'value'));
+
+	$.ajax({
+		type: 'DELETE',
+		url: apiUrl + '/subsystems/action/' + formData.rule_id,
+		data: {},
+		dataType: 'json',
+		beforeSend: function (xhr)
+		{
+			xhr.setRequestHeader('x-access-token', token); 
+		},
+		success: function (response)
+		{
+			if (response.action == true)
+			{
+				//Destroy Row
+				$('#'+formData.rule_id).remove();
+
+				//Hide Modal
+				$('.mini.modal.revokeRuleModal').modal('hide') ;
+
+				//Display Snackbar
+				Snackbar.show({
+					text: 'Rule Revoked Successfully',
+					pos: 'bottom-center'
+				}); 
+				numberOfActions-- ;
+			}
+			if(numberOfActions < 1)
+			{
+				$('#actionTableList').append(`
+					<tr>
+						<td colspan=5 style="text-align: center;">No rules set</td>
+					</tr>
+				`);
+			}
+		},
+		error: function (response)
+		{
+			Snackbar.show({
+				text: 'Something went wrong, please try again later',
+				pos: 'bottom-center',
+				actionTextColor: 'rgba(255,90,100,1)'
+			}); 
+		}
+	});
 });
 
 // Semantic UI Dropdown
@@ -453,6 +568,46 @@ function populateData(response)
 		`);
 
 	});
+
+	$.each(response.actions,function(key,action)
+	{
+		if(action.condition == true)
+		{
+			condition = 'Greater Than' ;
+		}
+		else
+		{
+			condition = 'Less Than' ;
+		}
+		if(action.action == true)
+		{
+			rule = 'On' ;
+		}
+		else
+		{
+			rule = 'Off' ;
+		}
+		//Populate Action List
+		$('#actionTableList').append(`
+			<tr id="`+ action.rule_id +`">
+				<td>`+ condition +`</td>
+				<td>`+ action.value +`</td>
+				<td>`+ rule +`</td>
+				<td>`+ action.actuator_id +`</td>
+				<td><a class="revokeRule" onclick="revokeRule('`+ action.rule_id +`','`+ condition +`','`+ action.value +`','`+ rule +`','`+ action.actuator_id +`')">Revoke</a></td>
+			</tr>
+		`);
+		numberOfActions++ ;
+	});
+
+	if(numberOfActions < 1)
+	{
+		$('#actionTableList').append(`
+			<tr>
+				<td colspan=5 style="text-align: center;">No rules set</td>
+			</tr>
+		`);
+	}
 
 	//Declare Data Table
 	$('#readingTable').DataTable();
