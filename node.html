@@ -21,6 +21,10 @@
 		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
 		<link rel="stylesheet" type="text/css" href="assets/css/node.css">
 
+		<!-- Snackbar Local -->
+		<link rel="stylesheet" type="text/css" href="assets/snackbar/dist/snackbar.min.css" />
+		<script src="assets/snackbar/dist/snackbar.min.js"></script>
+
 	</head>
 	
 
@@ -55,44 +59,78 @@
 			<!-- Main Content -->
 			<div class="contentContainer">
 				
-				<!-- Top Cards -->
-				<div class="ui four column centered grid stackable" id="topCards">
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="nodeCard">
-							<div class="content">
-								<div class="header">Nodes</div>
-								<div class="description">Some desc</div>
+				<div class="ui fluid card" id="topCard">
+					<form class="content ui form createForm" id="createForm" name="createForm">
+						<h3 class="header">Add a Node</h3>
+						<div class="description">Control devices, provide gateway for sensors to transmit payload</div>
+						<div class="ui divider"></div>
+						<div class="ui centered grid stackable">
+							<div class="eight wide column">
+								<div class="ui field">
+									<label>Node Name</label>
+									<input type="text" name="name" id="name" placeholder="Name your node">
+								</div>
+								<div class="ui field">
+									<label>Node Description</label>
+									<textarea name="description" id="description" placeholder="Optional"></textarea>
+								</div>
+								<div class="ui field">
+									<label>Location</label>
+									<input type="text" name="location" id="location" placeholder="Ex. Living Room">
+								</div>
+							</div>
+							<div class="eight wide column">
+								<h4 class="additionalInfoHeader">Additional Information</h4>
+								<div class="ui divider"></div>
+								<div class="ui field">
+									<label>Latitude</label>
+									<input type="text" name="latitude" id="latitude" placeholder="Optional">
+								</div>
+								<div class="ui field">
+									<label>Longitude</label>
+									<input type="text" name="longitude" id="longitude" placeholder="Optional">
+								</div>
+								<div class="ui field">
+									<label>Elevation (in Meters)</label>
+									<input type="text" name="elevation" id="elevation" placeholder="Ex. 1598">
+								</div>
+								<div class="ui field">
+									<label>Website</label>
+									<input type="url" name="website" id="website" placeholder="Ex. https://yourwebsite.com">
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="sensorCard">
-							<div class="content">
-								<div class="header">Sensors</div>
-								<div class="description">Some desc</div>
-							</div>
-						</div>
-					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="actuatorCard">
-							<div class="content">
-								<div class="header">Actuators</div>
-								<div class="description">Some desc</div>
-							</div>
-						</div>
-					</div>
-					<div class="column" id="topCardsColumn">
-						<div class="ui fluid card" id="actuatorCard">
-							<div class="content">
-								<div class="header">Usage</div>
-								<div class="description">Some desc</div>
-							</div>
-						</div>
-					</div>
+						<div class="ui error message"></div>
+						<div class="ui divider"></div>
+						<button class="ui green basic button" type="submit" id="submit" name="submit"><i class="add icon"></i>Add Node</button>
+					</form>
 				</div>
+
 				
-				<div class="helloMessage">
-					<p>Hi there, what are you waiting for?</p>
+				<div class="ui centered grid stackable">
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content" id="centerAligned">
+									<h3 class="header">Your Nodes</h3>
+									<div class="description">Click on an node to view connected devices and insights</div>
+									<div class="ui divider"></div>
+									<table class="ui table structured celled unstackable">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Description</th>
+												<th class="hideOnMobile">Location</th>
+												<th class="hideOnMobile">Node ID</th>
+											</tr>
+										</thead>
+										<tbody class="nodeList"></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 
 			</div>

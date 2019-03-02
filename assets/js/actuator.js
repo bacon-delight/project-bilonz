@@ -60,7 +60,8 @@ $('#createForm').on('submit', function(e)
 					$('.actuatorList').append(`
 						<tr class="actuatorInfo" onclick="exploreActuator('`+ response.private_id +`')" style="cursor: pointer;">
 							<td>`+ formDataJSON.name +`</td>
-							<td>`+ formDataJSON.description +`</td>
+							<td class="hideOnMobile">`+ formDataJSON.description +`</td>
+							<td>Off</td>
 							<td class="hideOnMobile">`+ response.private_id +`</td>
 							<td class="hideOnMobile"></td>
 						</tr>
@@ -72,7 +73,8 @@ $('#createForm').on('submit', function(e)
 					$('.actuatorList').html(`
 						<tr class="actuatorInfo" onclick="exploreActuator('`+ response.private_id +`')" style="cursor: pointer;">
 							<td>`+ formDataJSON.name +`</td>
-							<td>`+ formDataJSON.description +`</td>
+							<td class="hideOnMobile">`+ formDataJSON.description +`</td>
+							<td>Off</td>
 							<td class="hideOnMobile">`+ response.private_id +`</td>
 							<td class="hideOnMobile"></td>
 						</tr>
@@ -123,10 +125,20 @@ $.ajax({
 			{
 				$.each(response.actuators,function(key,actuator)
 				{
+					var state ;
+					if (actuator.state == false)
+					{
+						state = 'Off' ;
+					}
+					else
+					{
+						state = 'On' ;
+					}
 					$('.actuatorList').append(`
 						<tr class="actuatorInfo" onclick="exploreActuator('`+ actuator.private_id +`')" style="cursor: pointer;">
 							<td>`+ actuator.name +`</td>
-							<td>`+ actuator.description +`</td>
+							<td class="hideOnMobile">`+ actuator.description +`</td>
+							<td>`+ state +`</td>
 							<td class="hideOnMobile">`+ actuator.private_id +`</td>
 							<td class="hideOnMobile">`+ actuator.node_id +`</td>
 						</tr>

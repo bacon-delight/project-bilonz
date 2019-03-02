@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+	<!-- Headers -->
+	<head>
+		<title>Bilonz - Actuator Information</title>
+
+		<!-- Meta Tags -->
+		<meta charset="utf-8">
+	    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+	    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0" name="viewport">
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+
+	    <!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+		
+		<!-- Data Table -->
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.semanticui.min.css">
+		<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+		<script src="https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js"></script>
+
+		<!-- Fonts -->
+		<link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+
+		<!-- Local Imports -->
+		<link rel="stylesheet" type="text/css" href="assets/css/common.css">
+		<link rel="stylesheet" type="text/css" href="assets/css/actuatorInfo.css">
+
+		<!-- Snackbar Local -->
+		<link rel="stylesheet" type="text/css" href="assets/snackbar/dist/snackbar.min.css" />
+		<script src="assets/snackbar/dist/snackbar.min.js"></script>
+
+	</head>
+	
+
+	<!-- Body -->
+	<body>
+
+		<!-- Navigation -->
+		<nav class="navContainer">
+			<div class="sidebarTrigger" onclick="toggleSidebar()">
+				<i class="bars icon" id="sidebarIcon"></i>
+			</div>
+			<div class="logo">
+			    <a href="index.html">
+			        <div class="random">
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			            <span class="nbr ltr">0</span>
+			        </div>
+			    </a>
+			</div>
+		</nav>
+
+		<div class="mainContainer">
+			<!-- Sidebar -->
+			<div class="sidebarContainer">
+				<div class="ui vertical menu inverted" id="sidebarMenu"></div>
+			</div>
+
+			<!-- Main Content -->
+			<div class="contentContainer">
+				
+				<div class="ui centered grid stackable">
+					
+					<!-- Top Row -->
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header" id="actuatorName">Actuator Name</h3>
+									<div class="ui divider"></div>
+									<div class="description actuatorDetails">
+										<div class="ui list">
+											<div class="item" id="actuatorDescription">
+												<strong>Description: </strong>
+											</div>
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<div class="description actuatorDetails">
+										<h4>Additional Information</h4>
+										<div class="ui list">
+											<div class="item">
+												<div class="ui segment" id="codeSegment">
+													<strong>Actuator ID: </strong>
+													<code id="actuatorID"></code>
+												</div>
+											</div>
+											<div class="item">
+												<div class="ui segment" id="codeSegment">
+													<strong>Root Node: </strong>
+													<code id="nodeID"></code>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<div class="actionContainer">
+										<div class="ui basic blue button" id="actionButtons" onclick="manageActuator()">
+											Manage
+										</div>
+										<div class="ui basic red button"  id="actionButtons" onclick="deleteActuator()">
+											Delete
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="eight wide column">
+							<div class="row">
+								<div class="ui grid stackable centered">
+									<div class="eight wide column" id="leftCardColumn">
+										<div class="ui fluid card" id="leftCard">
+											<div class="content">
+												<h3>Current State</h3>
+												<h1 class="currentState"></h1>
+												<h4><strong>Last Change</strong></h4>
+												<h5 id="lastChange">N/A</h5>
+											</div>
+										</div>
+									</div>
+									<div class="eight wide column" id="rightCardColumn">
+										<div class="ui fluid card" id="rightCard">
+											<div class="content">
+												<h3>Remote Control</h3>
+												<div class="ui divider"></div>
+												<div id="remoteButton" onclick="triggerChange()"></div>
+												<br>
+												<p>It might take upto 30 seconds for actuators to change state, depending on transmission cycle</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="row" style="margin-top: 20px;">
+								<div class="sixteen wide column">
+									<div class="ui fluid card">
+										<div class="content">
+											<h3>Status</h3>
+											<div class="ui divider"></div>
+											<h4 id="statusUpdate">All Updated, no Pending Changes</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+
+
+					<div class="row">
+						<div class="sixteen wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<div class="ui text menu">
+										<div class="item">
+											<h3 class="header">
+												Actuator Log
+											</h3>
+										</div>
+										<div class="right item">
+											<div class="ui button basic primary" onclick="exportCSV()">
+												Export CSV
+											</div>
+										</div>
+									</div>
+									<div class="ui divider"></div>
+									<table class="ui celled table unstackable" id="readingTable">
+										<thead>
+											<tr>
+												<th>Timestamp</th>
+												<th>Value</th>
+												<th>Agent</th>
+												<th>Status/Cause</th>
+											</tr>
+										</thead>
+										<tbody id="readingTableBody">
+											<!-- Rows Inserted from JS -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<div class="row">
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">API Listening Gateway (GET)</h3>
+									<div class="ui divider"></div>
+									<h4>Please Note:</h4>
+									<li>HTTP and HTTPS are both accepted</li>
+									<li>Data is sent in URL when this gateway is used</li>
+									<li>Only one actuator reading can be sent through this method</li>
+									<li>Replace the variables represented in red with appropriate values</li>
+									<div class="ui divider"></div>
+									<h4>Request URL</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code id="getURL"></code>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="eight wide column">
+							<div class="ui fluid card">
+								<div class="content">
+									<h3 class="header">API Payload Gateway (POST)</h3>
+									<div class="ui divider"></div>
+									<h4>Please Note:</h4>
+									<li>HTTP and HTTPS are both accepted</li>
+									<li>Multiple sensor readings can be sent through this method</li>
+									<li>Actuator states can also be sent in the payload</li>
+									<li>Replace the variables represented in red with appropriate values</li>
+									<div class="ui divider"></div>
+									<h4>Payload Gateway</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code id="payloadURL"></code>
+									</div>
+									<h4>Headers</h4>
+									<div class="ui segment gatewayDetails" id="codeSegment">
+										<code>
+											<strong>Content-Type:</strong> application/json<br>
+											<strong>x-access-node: <span style="color: red;">NODE-ID</span></strong>
+										</code>
+									</div>
+									<h4>Body</h4>
+									<div class="ui segment" id="codeSegment">
+										<code class="json">
+											{
+												"actuators": [
+													{
+														"id": "<span id="actuatorIdPayload"></span>",
+														"value": "<strong style="color: red;">VALUE</strong>"
+													}
+												]
+											}
+										</code>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Modal for Managing Actuator -->
+		<form class="ui mini modal modifyForm" id="modifyForm" name="modifyForm">
+			<div class="header">Manage Actuator</div>
+			<div class="content ui form">
+				<div class="ui field">
+					<label>Actuator Name</label>
+					<input type="text" name="name" id="modifyName">
+				</div>
+				<div class="ui field">
+					<label>Actuator Description</label>
+					<textarea name="description" id="modifyDescription"></textarea>
+				</div>
+				<div class="ui field">
+					<label>Lowest Limit</label>
+					<input type="text" name="lowest" id="modifyLowest">
+				</div>
+				<div class="ui field">
+					<label>Highest Limit</label>
+					<input type="text" name="highest" id="modifyHighest">
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui red basic deny button"><i class="cancel icon"></i>Cancel</div>
+				<button class="ui green basic button" type="submit" id="submit" name="submit"><i class="checkmark icon"></i>Save Changes</button>
+			</div>
+		</form>
+		
+		<form class="ui mini modal deleteForm" name="deleteForm" id="deleteForm">
+			<div class="header">Delete Actuator</div>
+			<div class="content ui form">
+				<h4>Please Note</h4>
+				<p>This action cannot be undone and will permanently delete the actuator and all its data and logs</p>
+				<div class="ui field">
+					<label>Please type the name of the actuator to confirm</label>
+					<input type="text" name="deleteConfirm" id="deleteConfirm">
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui basic blue deny button">Cancel</div>
+				<button class="ui red button" type="submit" id="submitDelete" name="submit"><i class="trash alternate outline icon"></i>Permanently Delete</button>
+			</div>
+		</form>
+
+		<!-- CDN Imports -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/semantic.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+		<!-- Local Imports -->
+		<script src="assets/js/main.js"></script>
+		<script src="assets/js/common.js"></script>
+		<script src="assets/js/actuatorInfo.js"></script>
+
+	</body>
+</html>

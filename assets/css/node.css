@@ -1,20 +1,33 @@
-*, *::after, *::before {
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
+.nodeInfo {
+	transition: 1.2s;
 }
 
-*::after, *::before {
-	content: '';
+.nodeInfo:hover {
+	background: #d9d9d9;
+	transition: 1.2s;
 }
 
-body {
+#centerAligned {
+	text-align: center;
 }
 
-#topCards {
-	margin-bottom: 30px;
+.content.ui.form.createForm {
+	text-align: center;
 }
 
-#topCardsColumn {
-	min-width: 250px;
+#topCard {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.additionalInfoHeader {
+	padding-top: 5.7px;
+}
+
+/* Mobile Devices */
+@media only screen 
+and (max-width : 767px) {
+	#topCard {
+		width: 92.6%;
+	}
 }

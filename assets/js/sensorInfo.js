@@ -16,13 +16,169 @@ function exportCSV()
 	Snackbar.show({
 		text: 'This feature will be available soon',
 		pos: 'bottom-center'
-	}); 
+	});
 }
 
 function manageSensor()
 {
 	$('.mini.modal.modifyForm').modal('show').modal('setting', 'closable', false) ;
 }
+
+function createAction()
+{
+	//Hide Errors
+	$('#addActionError').css('display', 'none');
+
+	// Populate Sensor ID in Hidden Input
+	$('#sensor_id_action').val(sensor_id);
+	$('#cause_action').val('USER DEFINED RULE');
+
+	//Populate Actuator List
+	$.ajax({
+		type: 'GET',
+		url: apiUrl + '/subsystems/actuator',
+		dataType: 'json',
+		data: '{}',
+		beforeSend: function (xhr)
+		{
+			xhr.setRequestHeader('x-access-token', token); 
+		},
+		success: function (response)
+		{
+			//Check for action success
+			if (response.action == true)
+			{
+				//Check if an actuator exists
+				if (response.exists == true)
+				{
+					$('#actuatorList').html('');
+					$.each(response.actuators,function(key,actuator)
+					{
+						
+						$('#actuatorList').append(`
+							<div class="item" data-value="`+ actuator.private_id +`">`+ actuator.name +`</div>
+						`);
+					});
+				}
+			}
+		},
+		error: function (response)
+		{
+			//Display Snackbar
+			Snackbar.show({
+				text: 'Failed to retrieve actuator list, please try again later',
+				pos: 'bottom-center',
+				actionTextColor: 'rgba(255,90,100,1)'
+			});
+		}
+	});
+
+	// Show Modal
+	$('.mini.modal.addAction').modal('show').modal('setting', 'closable', false) ;
+}
+
+//Form Validation
+$('#addAction')
+.form({
+	fields: {
+		condition: {
+			rules: [
+			{
+				type   : 'empty',
+				prompt : 'Please select a condition'
+			}]
+		},
+		value: {
+			rules: [
+			{
+				type   : 'empty',
+				prompt : 'Threshold Value cannot be empty, please enter a value'
+			},
+			{
+				type   : 'number',
+				prompt : 'Threshold Value can only be numbers (Integer/Float)'
+			}]
+		},
+		action: {
+			rules: [
+			{
+				type   : 'empty',
+				prompt : 'Please select an action'
+			}]
+		},
+		actuator_id: {
+			rules: [
+			{
+				type   : 'empty',
+				prompt : 'Please select an actuator'
+			}]
+		}
+	}
+});
+
+$('#addAction').on('submit', function(e)
+{
+	//Prevent Default Action 
+	e.preventDefault();
+
+	//If form is valid
+	if( $('#addAction').form('is valid'))
+	{
+		//Hide Errors
+		$('#addActionError').css('display', 'none');
+		//Serialize Form Data
+		var form = $(this);
+		var formData = form.serializeArray() ;
+		formData = _.object(_.pluck(formData, 'name'), _.pluck(formData, 'value'));
+		formDataJSON = formData ;
+		formData = JSON.stringify(formData);
+
+		$.ajax({
+			type: 'POST',
+			url: apiUrl + '/subsystems/action',
+			data: formData,
+			dataType: 'json',
+			contentType: "application/json; charset=utf-8",
+			beforeSend: function (xhr)
+			{
+				xhr.setRequestHeader('x-access-token', token); 
+			},
+			success: function (response)
+			{
+				if (response.action == true)
+				{
+					//Update List
+
+					//Hide Modal
+					$('.mini.modal.addAction').modal('hide') ;
+
+					//Display Snackbar
+					Snackbar.show({
+						text: 'Action Added Successfully',
+						pos: 'bottom-center'
+					}); 
+				}
+			},
+			error: function (response)
+			{
+				Snackbar.show({
+					text: 'Something went wrong, please try again later',
+					pos: 'bottom-center',
+					actionTextColor: 'rgba(255,90,100,1)'
+				}); 
+			}
+		});
+
+	}
+	else
+	{
+		$('#addActionError').css('display', 'block');
+	}
+
+});
+
+// Semantic UI Dropdown
+$('.ui.dropdown').dropdown();
 
 $('#modifyForm').on('submit', function(e)
 {
@@ -314,7 +470,7 @@ function populateData(response)
 
 	//Populate Gateway Details
 	$('#payloadURL').html(apiUrl + '/gateway/payload');
-	$('#getURL').html(apiUrl + '/gateway/transmit/<strong><span style="color: red;">NODE-ID</span></strong>?sensor_id='+ sensor_id +'&value=<strong><span style="color: red;">VALUE</span></strong>');
+	$('#getURL').html(apiUrl + '/gateway/transmit/<strong><span style="color: red;">NODE-ID</span></strong>/'+ sensor_id +'/<strong><span style="color: red;">VALUE</span></strong>');
 	$('#sensorId').html(sensor_id);
 
 	//Update Manage Sensor Form
@@ -504,9 +660,13 @@ $(document).ready(function() {
 	{ 
 		$.ajax({
 			type: 'GET',
-			url: apiUrl + '/gateway/last/sensor/' + sensor_id,
+			url: apiUrl + '/subsystems/refresh/sensor/' + sensor_id,
 			dataType: 'json',
 			data: '{}',
+			beforeSend: function (xhr)
+			{
+				xhr.setRequestHeader('x-access-token', token); 
+			},
 			success: function (response)
 			{
 				//Check for action success

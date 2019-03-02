@@ -90,9 +90,18 @@ $('#loginForm').on('submit', function(e)
 			},
 			error : function (response)
 			{
-				//Update Error Description
-				$('#errorDescription').html(response.responseText);
-
+				if(response.status==0)
+				{
+					//Update Error Description
+					$('#loginError').html('Could Not Connect');
+					$('#errorDescription').html('The server might be offline or down for maintenance');
+				}
+				else
+				{
+					//Update Error Description
+					$('#loginError').html('Authentication Error');
+					$('#errorDescription').html(response.responseText);
+				}
 				//Check if Error Message is Previously Displayed
 				if(errorMessageCount == 0)
 				{

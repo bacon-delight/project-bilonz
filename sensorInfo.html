@@ -80,12 +80,6 @@
 											<div class="item" id="sensorDescription">
 												<strong>Description: </strong>
 											</div>
-											<!-- <div class="item" id="lowestLim">
-												<strong>Lowest Limit: </strong>
-											</div>
-											<div class="item" id="highestLim">
-												<strong>Highest Limit: </strong>
-											</div> -->
 										</div>
 									</div>
 									<div class="ui divider"></div>
@@ -109,10 +103,10 @@
 									<div class="ui divider"></div>
 									<div class="actionContainer">
 										<div class="ui basic blue button" id="actionButtons" onclick="manageSensor()">
-											Manage Sensor
+											Manage
 										</div>
 										<div class="ui basic red button"  id="actionButtons" onclick="deleteSensor()">
-											Delete Sensor
+											Delete
 										</div>
 									</div>
 								</div>
@@ -155,6 +149,7 @@
 												<input type="checkbox" disabled="disabled" name="lowAlert">
 												<label>Alert when readings drop below Low Limit</label>
 											</div>
+											<br>
 											<div class="ui slider checkbox alertCheckbox">
 												<input type="checkbox" disabled="disabled" name="highAlert">
 												<label>Alert when readings rise above High Limit</label>
@@ -240,55 +235,74 @@
 						<div class="eight wide column">
 							<div class="ui fluid card">
 								<div class="content">
-									<h3 class="header">API Transmission Gateway (GET)</h3>
+									<h3 class="header">Automated Actions</h3>
 									<div class="ui divider"></div>
-									<h4>Please Note:</h4>
-									<li>HTTP and HTTPS are both accepted</li>
-									<li>Data is sent as params when this gateway is used</li>
-									<li>Only one sensor reading can be sent through this method</li>
-									<li>Replace the variables represented in red with appropriate values</li>
+									<div class="actionList">No actions set</div>
 									<div class="ui divider"></div>
-									<h4>Request URL</h4>
-									<div class="ui segment gatewayDetails" id="codeSegment">
-										<code id="getURL"></code>
+									<div class="ui basic blue button" id="actionButtons" onclick="createAction()">
+										Add Action
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="eight wide column">
-							<div class="ui fluid card">
-								<div class="content">
-									<h3 class="header">API Payload Gateway (POST)</h3>
-									<div class="ui divider"></div>
-									<h4>Please Note:</h4>
-									<li>HTTP and HTTPS are both accepted</li>
-									<li>Multiple sensor readings can be sent through this method</li>
-									<li>Actuator states can also be sent in the payload</li>
-									<li>Replace the variables represented in red with appropriate values</li>
-									<div class="ui divider"></div>
-									<h4>Payload Gateway</h4>
-									<div class="ui segment gatewayDetails" id="codeSegment">
-										<code id="payloadURL"></code>
+							<div class="row">
+								<div class="sixteen wide column">
+									<div class="ui fluid card">
+										<div class="content">
+											<h3 class="header">API Transmission Gateway (GET)</h3>
+											<div class="ui divider"></div>
+											<h4>Please Note:</h4>
+											<li>HTTP and HTTPS are both accepted</li>
+											<li>Data is sent as params when this gateway is used</li>
+											<li>Only one sensor reading can be sent through this method</li>
+											<li>Replace the variables represented in red with appropriate values</li>
+											<div class="ui divider"></div>
+											<h4>Request URL</h4>
+											<div class="ui segment gatewayDetails" id="codeSegment">
+												<code id="getURL"></code>
+											</div>
+										</div>
 									</div>
-									<h4>Headers</h4>
-									<div class="ui segment gatewayDetails" id="codeSegment">
-										<code>
-											<strong>Content-Type:</strong> application/json<br>
-											<strong>x-access-node: <span style="color: red;">NODE-ID</span></strong>
-										</code>
-									</div>
-									<h4>Body</h4>
-									<div class="ui segment" id="codeSegment">
-										<code class="json">
-											{
-												"sensors": [
+								</div>
+							</div>
+							<div class="row">
+								<div class="sixteen wide column">
+									<div class="ui fluid card">
+										<div class="content">
+											<h3 class="header">API Payload Gateway (POST)</h3>
+											<div class="ui divider"></div>
+											<h4>Please Note:</h4>
+											<li>HTTP and HTTPS are both accepted</li>
+											<li>Multiple sensor readings can be sent through this method</li>
+											<li>Actuator states can also be sent in the payload</li>
+											<li>Replace the variables represented in red with appropriate values</li>
+											<div class="ui divider"></div>
+											<h4>Payload Gateway</h4>
+											<div class="ui segment gatewayDetails" id="codeSegment">
+												<code id="payloadURL"></code>
+											</div>
+											<h4>Headers</h4>
+											<div class="ui segment gatewayDetails" id="codeSegment">
+												<code>
+													<strong>Content-Type:</strong> application/json<br>
+													<strong>x-access-node: <span style="color: red;">NODE-ID</span></strong>
+												</code>
+											</div>
+											<h4>Body</h4>
+											<div class="ui segment" id="codeSegment">
+												<code class="json">
 													{
-														"id": "<span id="sensorId"></span>",
-														"value": "<strong style="color: red;">VALUE</strong>"
+														"sensors": [
+															{
+																"id": "<span id="sensorId"></span>",
+																"value": "<strong style="color: red;">VALUE</strong>"
+															}
+														]
 													}
-												]
-											}
-										</code>
+												</code>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -341,6 +355,56 @@
 			<div class="actions">
 				<div class="ui basic blue deny button">Cancel</div>
 				<button class="ui red button" type="submit" id="submitDelete" name="submit"><i class="trash alternate outline icon"></i>Permanently Delete</button>
+			</div>
+		</form>
+
+		<form class="ui mini modal addAction" name="addAction" id="addAction">
+			<div class="header">Add Action</div>
+			<input type="hidden" name="sensor_id" id="sensor_id_action">
+			<input type="hidden" name="cause" id="cause_action">
+			<div class="content ui form addActionForm" id="addActionForm">
+				<div class="ui field">
+					<label>Select Condition</label>
+					<div class="ui selection dropdown">
+						<input type="hidden" id="" name="condition" />
+						<i class="dropdown icon"></i>
+						<div class="default text">Select</div>
+						<div class="menu">
+							<div class="item" data-value="0">Less Than</div>
+							<div class="item" data-value="1">Greater Than</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui field">
+					<label>Sensor Threshold Value</label>
+					<input type="text" name="value" id="" placeholder="Integer/Float Value">
+				</div>
+				<div class="ui field">
+					<label>Select Action</label>
+					<div class="ui selection dropdown">
+						<input type="hidden" id="" name="action" />
+						<i class="dropdown icon"></i>
+						<div class="default text">Select</div>
+						<div class="menu">
+							<div class="item" data-value="0">Switch Off</div>
+							<div class="item" data-value="1">Switch On</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui field">
+					<label>Select Actuator</label>
+					<div class="ui selection dropdown">
+						<input type="hidden" id="actuator_id_action" name="actuator_id" />
+						<i class="dropdown icon"></i>
+						<div class="default text">Select</div>
+						<div class="menu" id="actuatorList"></div>
+					</div>
+				</div>
+			</div>
+			<div class="actions">
+				<div class="ui error message" id="addActionError"></div>
+				<div class="ui basic red deny button">Cancel</div>
+				<button class="ui green basic button" type="submit" id="submitAction" name="submit"><i class="add icon"></i>Add Action</button>
 			</div>
 		</form>
 

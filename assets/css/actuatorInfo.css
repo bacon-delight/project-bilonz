@@ -1,0 +1,74 @@
+.actionContainer {
+	width: 100%;
+	padding: 2.3px;
+}
+
+#actionButtons {
+	margin: 5px;
+}
+
+#leftCardColumn, #rightCardColumn {
+	text-align: center;
+}
+
+#lastChange {
+	margin-top: 0px;
+}
+
+#leftCard {
+	color: #fff;
+}
+
+#rightCard {
+}
+
+#statusUpdate {
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 1.2px;
+}
+
+.description.actuatorDetails {
+	letter-spacing: 1.3px;
+}
+
+div.ui.fluid.card {
+	padding-top: 10px;
+}
+
+div.row {
+	margin-bottom: 7px;
+}
+
+h3.header {
+	letter-spacing: 2px;
+	font-family: 'Exo', sans-serif;
+	text-align: center;
+}
+
+.ui.segment.gatewayDetails {
+	border-radius: 0px;
+	letter-spacing: 2px;
+	font-family: 'Exo', sans-serif;
+}
+
+#codeSegment {
+	overflow-x: overlay;
+}
+
+.ui.slider.checkbox.alertCheckbox {
+	margin-top: 15px;
+}
+
+div#codeSegment::-webkit-scrollbar {
+    width: 0.2em;
+}
+ 
+div#codeSegment::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+div#codeSegment::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 0.2px solid slategrey;
+}
