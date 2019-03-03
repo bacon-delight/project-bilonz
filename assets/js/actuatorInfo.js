@@ -14,17 +14,13 @@ function triggerChange()
 	{
 		var newState = '0' ;
 	}
-	// Payload
-	stateChangePayload = {} ;
-	stateChangePayload['actuator_id'] = actuator_id;
-	stateChangePayload['value'] = newState;
 
 	// Send Action Request
 	$.ajax({
-		type: 'POST',
-		url: apiUrl + '/subsystems/action',
+		type: 'GET',
+		url: apiUrl + '/subsystems/action/'+ actuator_id + '/' + newState,
 		dataType: 'json',
-		data: JSON.stringify(stateChangePayload),
+		data: '{}',
 		contentType: "application/json; charset=utf-8",
 		beforeSend: function (xhr)
 		{
