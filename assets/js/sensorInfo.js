@@ -169,9 +169,9 @@ $('#addAction').on('submit', function(e)
 						//Update Action List
 						$('#actionTableList').html(`
 							<tr id="`+ response.rule_id +`">
-								<td>`+ condition +`</td>
-								<td>`+ formDataJSON.value +`</td>
-								<td>`+ rule +`</td>
+								<td class="hideOnMobile">`+ condition +`</td>
+								<td class="hideOnMobile">`+ formDataJSON.value +`</td>
+								<td class="hideOnMobile">`+ rule +`</td>
 								<td>`+ formDataJSON.actuator_id +`</td>
 								<td><a class="revokeRule" onclick="revokeRule('`+ response.rule_id +`','`+ condition +`','`+ formDataJSON.value +`','`+ rule +`','`+ formDataJSON.actuator_id +`')">Revoke</a></td>
 							</tr>
@@ -182,9 +182,9 @@ $('#addAction').on('submit', function(e)
 						//Update Action List
 						$('#actionTableList').append(`
 							<tr id="`+ response.rule_id +`">
-								<td>`+ condition +`</td>
-								<td>`+ formDataJSON.value +`</td>
-								<td>`+ rule +`</td>
+								<td class="hideOnMobile">`+ condition +`</td>
+								<td class="hideOnMobile">`+ formDataJSON.value +`</td>
+								<td class="hideOnMobile">`+ rule +`</td>
 								<td>`+ formDataJSON.actuator_id +`</td>
 								<td><a class="revokeRule" onclick="revokeRule('`+ response.rule_id +`','`+ condition +`','`+ formDataJSON.value +`','`+ rule +`','`+ formDataJSON.actuator_id +`')">Revoke</a></td>
 							</tr>
@@ -590,9 +590,9 @@ function populateData(response)
 		//Populate Action List
 		$('#actionTableList').append(`
 			<tr id="`+ action.rule_id +`">
-				<td>`+ condition +`</td>
-				<td>`+ action.value +`</td>
-				<td>`+ rule +`</td>
+				<td class="hideOnMobile">`+ condition +`</td>
+				<td class="hideOnMobile">`+ action.value +`</td>
+				<td class="hideOnMobile">`+ rule +`</td>
 				<td>`+ action.actuator_id +`</td>
 				<td><a class="revokeRule" onclick="revokeRule('`+ action.rule_id +`','`+ condition +`','`+ action.value +`','`+ rule +`','`+ action.actuator_id +`')">Revoke</a></td>
 			</tr>
